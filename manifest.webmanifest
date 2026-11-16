@@ -2,12 +2,15 @@
   "id": "./",
   "name": "BalanceOS — نظام التوازن والإنجاز",
   "short_name": "BalanceOS",
-  "description": "منظومة شخصية لإدارة التوازن والمهام والعادات والأهداف والتقدم.",
+  "description": "نظام حياة شخصي لإدارة التوازن والمهام والعادات والأهداف والمشروعات والتعلم. يعمل محليًا دون اتصال بعد التثبيت.",
   "lang": "ar",
   "dir": "rtl",
-  "start_url": "./",
+  "start_url": "./?view=dashboard",
   "scope": "./",
   "display": "standalone",
+  "display_override": [
+    "standalone"
+  ],
   "orientation": "any",
   "background_color": "#f4f6f3",
   "theme_color": "#102a32",
@@ -15,6 +18,41 @@
     "productivity",
     "lifestyle",
     "education"
+  ],
+  "shortcuts": [
+    {
+      "name": "خطة اليوم",
+      "short_name": "اليوم",
+      "url": "./?view=today",
+      "icons": [
+        {
+          "src": "./assets/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "بدء التركيز",
+      "short_name": "التركيز",
+      "url": "./?mode=focus",
+      "icons": [
+        {
+          "src": "./assets/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "مراجعة المساء",
+      "short_name": "السجل",
+      "url": "./?view=journal",
+      "icons": [
+        {
+          "src": "./assets/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
   ],
   "icons": [
     {
