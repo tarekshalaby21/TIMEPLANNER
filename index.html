@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#102a32">
+  <meta name="description" content="BalanceOS — نظام متكامل للتوازن الشخصي والأسري والعلمي والدعوي والمشروعات والإنتاجية. يعمل دون اتصال ويحفظ بياناتك على جهازك.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <title>BalanceOS — نظام التوازن والإنجاز</title>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand-lockup">
+        <div class="brand-mark">B<span>•</span></div>
+        <div><div class="brand-name">BalanceOS</div><div class="brand-tag">نظام التوازن والإنجاز</div></div>
+      </div>
+      <div class="profile-mini" id="profileMini"></div>
+      <nav class="main-nav" id="mainNav" aria-label="القائمة الرئيسية">
+        <button class="nav-link active" data-view="dashboard"><span class="nav-ico">◫</span> نظرة عامة</button>
+        <button class="nav-link" data-view="today"><span class="nav-ico">✓</span> يومي</button>
+        <button class="nav-link" data-view="plans"><span class="nav-ico">◎</span> نظريات التوازن</button>
+        <button class="nav-link" data-view="habits"><span class="nav-ico">↻</span> العادات والروتين</button>
+        <button class="nav-link" data-view="goals"><span class="nav-ico">◇</span> الأهداف والمشروعات</button>
+        <button class="nav-link" data-view="journal"><span class="nav-ico">▤</span> السجل اليومي</button>
+        <button class="nav-link" data-view="focus"><span class="nav-ico">◷</span> التركيز</button>
+        <button class="nav-link" data-view="analytics"><span class="nav-ico">▥</span> التحليلات والتقدم</button>
+        <button class="nav-link" data-view="rewards"><span class="nav-ico">♜</span> الإنجازات والمكافآت</button>
+        <button class="nav-link" data-view="settings"><span class="nav-ico">⚙</span> الإعدادات والنسخ</button>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="offline-indicator"><i></i><span id="connectionLabel">حفظ محلي على هذا الجهاز</span></div>
+        <div class="version-label">BALANCEOS · 1.0.0</div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu icon-btn" id="mobileMenu" aria-label="فتح القائمة">☰</button>
+        <div class="topbar-title"><div class="eyebrow" id="todayDate"></div><h1 id="viewTitle">نظرة عامة</h1></div>
+        <div class="topbar-actions">
+          <button class="btn btn-secondary hidden" id="installApp">تثبيت التطبيق</button>
+          <button class="icon-btn" id="quickAddTop" title="إضافة سريعة">＋</button>
+          <button class="user-chip" id="profileChip"><span class="avatar-dot">✦</span><span id="profileNameTop">صاحب الخطة</span></button>
+        </div>
+      </header>
+
+      <section class="view active" id="view-dashboard">
+        <div class="welcome-row">
+          <div><div class="eyebrow">مساحة يومك</div><h2 id="welcomeTitle">ابدأ بخطوة واضحة، واستمر بإيقاع متوازن.</h2><p class="muted">لا تحتاج إلى إنجاز كل شيء اليوم. اختر ما يستحق انتباهك.</p></div>
+          <div class="date-pill" id="datePill"></div>
+        </div>
+        <div class="hero-grid">
+          <article class="hero-card level-card">
+            <div class="level-top"><span class="overline">مستوى التقدم</span><span class="level-badge" id="levelBadge">المستوى 1</span></div>
+            <div class="level-main"><div><div class="level-number" id="levelNumber">01</div><div class="muted" id="levelTitle">البداية الواعية</div></div><div class="level-emblem">✧</div></div>
+            <div class="xp-line"><span id="xpText">0 / 250 XP</span><span id="xpNext">250 XP للمستوى التالي</span></div>
+            <div class="progress-track light"><span id="xpBar" style="width:0%"></span></div>
+          </article>
+          <article class="hero-card daily-card">
+            <div class="level-top"><span class="overline">إنجاز اليوم</span><span class="soft-pill" id="todayPercent">0%</span></div>
+            <div class="daily-number"><strong id="doneCount">0</strong><span>/ <b id="totalCount">0</b> مهام</span></div>
+            <div class="progress-track"><span id="todayBar" style="width:0%"></span></div>
+            <div class="daily-foot"><span id="dailyGoalText">هدفك اليومي: 4 مهام</span><span id="streakText">🔥 0 يوم</span></div>
+          </article>
+        </div>
+        <div class="stats-grid" id="dashboardStats"></div>
+        <div class="section-heading"><div><h3>أولويات اليوم</h3><p>أهم الخطوات التي تحرك حياتك للأمام</p></div><button class="text-btn" data-goto="today">عرض كل مهام اليوم ←</button></div>
+        <div class="dashboard-columns">
+          <div class="panel"><div id="dashboardTasks" class="task-list"></div></div>
+          <div class="stack-col">
+            <div class="panel balance-panel"><div class="panel-head"><div><h3>توازن النظريات</h3><p>توزيع نشاطك اليوم بين الجوانب الأربعة</p></div><span class="tiny-pill">اليوم</span></div><div id="balanceBars"></div></div>
+            <div class="panel quote-panel"><div class="quote-mark">“</div><p id="dailyPrompt">القليل الدائم يصنع أثرًا يتراكم.</p><span>تذكير اليوم</span><button class="text-btn" data-goto="journal">دوّن تأملك اليوم ←</button></div>
+          </div>
+        </div>
+        <div class="section-heading"><div><h3>أهدافك النشطة</h3><p>تقدم تدريجي نحو ما يهمك</p></div><button class="text-btn" data-goto="goals">إدارة الأهداف ←</button></div>
+        <div class="goal-preview-grid" id="goalPreview"></div>
+      </section>
+
+      <section class="view" id="view-today">
+        <div class="page-intro"><div><div class="eyebrow">التنفيذ والمتابعة</div><h2>مساحة اليوم</h2><p>نفّذ ما خططت له، وسجل ما حدث فعلًا. يمكن تعديل الخطة دون اعتبار ذلك فشلًا.</p></div><button class="btn btn-primary" id="addTodayTask">＋ مهمة جديدة</button></div>
+        <div class="today-summary" id="todaySummary"></div>
+        <div class="toolbar"><div class="filter-pills" id="todayFilters"><button class="filter-pill active" data-filter="all">الكل</button><button class="filter-pill" data-filter="open">المتبقي</button><button class="filter-pill" data-filter="done">المنجز</button></div><select id="todayTheoryFilter" class="select-control"><option value="all">كل النظريات</option></select></div>
+        <div id="todayTaskGroups" class="task-groups"></div>
+        <div class="empty-state hidden" id="todayEmpty"><div class="empty-icon">☀</div><h3>لا توجد مهام مجدولة لهذا اليوم</h3><p>يمكنك إضافة مهمة أو اختيار عناصر من نظريات التوازن وجدولتها.</p><button class="btn btn-primary" data-goto="plans">افتح النظريات</button></div>
+      </section>
+
+      <section class="view" id="view-plans">
+        <div class="page-intro"><div><div class="eyebrow">الإطار الأساسي</div><h2>نظريات التوازن</h2><p>فعّل النظريات التي تناسب مرحلتك، وعدّل الأقسام والعناصر والتفريعات بحرية.</p></div><button class="btn btn-primary" id="addTheoryBtn">＋ نظرية مخصصة</button></div>
+        <div class="theory-switcher" id="theorySwitcher"></div>
+        <div id="theoryContent"></div>
+      </section>
+
+      <section class="view" id="view-habits">
+        <div class="page-intro"><div><div class="eyebrow">التكرار والاستمرارية</div><h2>العادات والروتين</h2><p>اختر عددًا واقعيًا من العادات، وحدد الإشارة والوقت والحد الأدنى الذي يجعل البداية سهلة.</p></div><button class="btn btn-primary" id="addHabitBtn">＋ عادة جديدة</button></div>
+        <div class="habit-top-grid" id="habitSummary"></div>
+        <div class="panel"><div class="panel-head"><div><h3>عادات اليوم</h3><p>سجل التنفيذ مرة واحدة لكل عادة في اليوم</p></div><span class="tiny-pill" id="habitDateLabel"></span></div><div id="habitList" class="habit-list"></div></div>
+        <div class="panel habit-principles"><h3>بناء عادة قابلة للاستمرار</h3><div class="principle-grid"><div><b>إشارة واضحة</b><span>اربطها بوقت أو حدث معروف.</span></div><div><b>خطوة صغيرة</b><span>ابدأ بنسخة سهلة لا تحتاج مقاومة كبيرة.</span></div><div><b>تسجيل مباشر</b><span>علّم الإنجاز فور حدوثه.</span></div><div><b>عودة مرنة</b><span>بعد الانقطاع، استأنف من أصغر خطوة دون عقاب.</span></div></div></div>
+      </section>
+
+      <section class="view" id="view-goals">
+        <div class="page-intro"><div><div class="eyebrow">النتائج بعيدة المدى</div><h2>الأهداف والمشروعات</h2><p>حوّل الرؤية إلى نتائج قابلة للمتابعة، ثم اربطها بالمهام والعادات اليومية.</p></div><button class="btn btn-primary" id="addGoalBtn">＋ هدف جديد</button></div>
+        <div class="goal-kpis" id="goalKpis"></div>
+        <div class="goal-list" id="goalList"></div>
+      </section>
+
+      <section class="view" id="view-journal">
+        <div class="page-intro"><div><div class="eyebrow">الوعي والمراجعة</div><h2>السجل اليومي</h2><p>سجّل ما أنجزته، وما تعلمته، وما يحتاج إلى تعديل. السجل مساحة للفهم لا للمحاسبة القاسية.</p></div><input type="date" id="journalDate" class="date-input"></div>
+        <div class="journal-layout"><div class="panel journal-form">
+          <div class="form-grid"><label class="field">كيف كان يومك؟<select id="journalMood" class="select-control"><option value="">اختر الحالة</option><option>هادئ ومتوازن</option><option>منتج ومركز</option><option>مزدحم</option><option>مرهق</option><option>متقطع</option><option>ممتن وراضٍ</option></select></label><label class="field">مستوى الطاقة<select id="journalEnergy" class="select-control"><option value="3">متوسط</option><option value="1">منخفض</option><option value="2">أقل من المعتاد</option><option value="4">جيد</option><option value="5">مرتفع</option></select></label></div>
+          <label class="field">أهم ما أنجزته<textarea id="journalWins" rows="3" placeholder="حتى الإنجازات الصغيرة تستحق التسجيل..."></textarea></label>
+          <label class="field">ماذا تعلمت أو ما الفائدة التي خرجت بها؟<textarea id="journalLearning" rows="3" placeholder="درس، فكرة، ملاحظة أو مهارة..."></textarea></label>
+          <label class="field">ما التحدي أو العائق اليوم؟<textarea id="journalChallenge" rows="3" placeholder="ما الذي منع التقدم؟ وما سببه؟"></textarea></label>
+          <label class="field">ما الذي أريد تحسينه غدًا؟<textarea id="journalTomorrow" rows="3" placeholder="اختر تعديلًا واحدًا قابلًا للتنفيذ..."></textarea></label>
+          <div class="row-end"><button class="btn btn-primary" id="saveJournal">حفظ سجل اليوم</button><span class="save-hint" id="journalSaved"></span></div>
+        </div><aside class="panel journal-side"><h3>ملخص هذا اليوم</h3><div id="journalDayStats"></div><div class="divider"></div><h3>آخر السجلات</h3><div id="recentJournal"></div></aside></div>
+      </section>
+
+      <section class="view" id="view-focus">
+        <div class="page-intro"><div><div class="eyebrow">العمل العميق</div><h2>مساحة التركيز</h2><p>جلسة تركيز واحدة على مهمة واضحة، ثم استراحة قصيرة. عدّل المدة بما يناسب طبيعة النشاط.</p></div></div>
+        <div class="focus-wrap"><div class="focus-card"><div class="focus-mode" id="focusMode">جلسة تركيز</div><div class="focus-ring" id="focusRing"><div><strong id="focusClock">25:00</strong><span id="focusStatus">جاهز للبدء</span></div></div><div class="focus-presets"><button class="focus-preset active" data-min="25">25 دقيقة</button><button class="focus-preset" data-min="45">45 دقيقة</button><button class="focus-preset" data-min="60">60 دقيقة</button><button class="focus-preset" data-min="5" data-break="1">استراحة 5</button></div><label class="field focus-task-field">المهمة التي ستركز عليها<select id="focusTask" class="select-control"></select></label><div class="focus-actions"><button class="btn btn-primary" id="focusStart">ابدأ التركيز</button><button class="btn btn-secondary" id="focusReset">إعادة ضبط</button><button class="btn btn-ghost" id="focusFinish">إنهاء وتسجيل</button></div><p class="muted small" id="focusHint">عند إنهاء جلسة لا تقل عن 10 دقائق، تسجل تلقائيًا في سجل التركيز.</p></div><div class="focus-side"><div class="panel"><div class="panel-head"><div><h3>تركيز اليوم</h3><p>الوقت المسجل في جلسات التركيز</p></div></div><div class="focus-today-number" id="focusTodayTotal">0 <span>دقيقة</span></div><div id="focusSessionsToday" class="session-list"></div></div><div class="panel"><h3>قاعدة الجلسة</h3><ol class="simple-list"><li>حدد نتيجة واحدة واضحة قبل البدء.</li><li>أبعد المشتتات غير الضرورية.</li><li>لا تقسّم الانتباه بين مهام متعددة.</li><li>سجل النتيجة ثم خذ استراحة مناسبة.</li></ol></div></div></div>
+      </section>
+
+      <section class="view" id="view-analytics">
+        <div class="page-intro"><div><div class="eyebrow">المراجعة والتحسين</div><h2>التحليلات والتقدم</h2><p>راقب الاتجاهات والاختلالات، لا الأرقام وحدها. استخدم النتائج لتعديل الخطة القادمة.</p></div><select id="analyticsRange" class="select-control"><option value="7">آخر 7 أيام</option><option value="30">آخر 30 يومًا</option><option value="90">آخر 90 يومًا</option></select></div>
+        <div class="analytics-kpis" id="analyticsKpis"></div>
+        <div class="analytics-grid"><div class="panel"><div class="panel-head"><div><h3>الإنجاز اليومي</h3><p>عدد المهام التي أُنجزت في كل يوم</p></div></div><div id="completionChart" class="bar-chart"></div></div><div class="panel"><div class="panel-head"><div><h3>توازن النظريات</h3><p>توزيع سجلات الإنجاز حسب النظرية</p></div></div><div id="theoryChart" class="theory-chart"></div></div></div>
+        <div class="panel"><div class="panel-head"><div><h3>مراجعة أسبوعية</h3><p>ملخص يساعدك على اختيار تحسين واحد للأسبوع القادم</p></div></div><div id="weeklyReview"></div></div>
+      </section>
+
+      <section class="view" id="view-rewards">
+        <div class="page-intro"><div><div class="eyebrow">التحفيز الهادئ</div><h2>الإنجازات والمكافآت</h2><p>حوّل التقدم إلى ملاحظات مرئية ومكافآت تختارها بنفسك، دون عقوبات على أيام الراحة أو التعثر.</p></div><button class="btn btn-primary" id="addRewardBtn">＋ مكافأة شخصية</button></div>
+        <div class="reward-hero" id="rewardHero"></div>
+        <div class="panel"><div class="panel-head"><div><h3>تحديات الأسبوع</h3><p>أهداف قصيرة مرنة تشجع على التوازن والاستمرار</p></div><span class="tiny-pill">تجدد أسبوعيًا</span></div><div id="weeklyChallenges" class="principle-grid"></div></div>
+        <div class="panel"><div class="panel-head"><div><h3>الشارات التي حصلت عليها</h3><p>تُفتح عند تحقيق محطات حقيقية في الاستمرارية والتوازن</p></div></div><div id="badgeGrid" class="badge-grid"></div></div>
+        <div class="panel"><div class="panel-head"><div><h3>متجر مكافآتك الشخصية</h3><p>استخدم العملات التي جمعتها لمكافأة نفسك بمكافآت واقعية</p></div><span class="tiny-pill" id="coinBalance">0 عملة</span></div><div id="rewardShop" class="reward-shop"></div></div>
+        <div class="panel"><h3>قواعد تحفيز صحية</h3><div class="principle-grid"><div><b>لا عقوبة على التعثر</b><span>لا نخسر نقاطًا عند تفويت يوم.</span></div><div><b>لا مكافأة للانشغال</b><span>النقاط مرتبطة بإنجاز ذي معنى.</span></div><div><b>الراحة جزء من الخطة</b><span>أيام الراحة لا تكسر الاستمرارية.</span></div><div><b>المقارنة مع نفسك</b><span>قِس تحسنك لا ترتيبك بين الناس.</span></div></div></div>
+      </section>
+
+      <section class="view" id="view-settings">
+        <div class="page-intro"><div><div class="eyebrow">التحكم والخصوصية</div><h2>الإعدادات والنسخ الاحتياطي</h2><p>بياناتك محفوظة على هذا الجهاز. صدّر نسخة احتياطية بانتظام قبل تغيير الجهاز أو المتصفح.</p></div></div>
+        <div class="settings-grid"><div class="panel"><h3>الملف الشخصي والأهداف</h3><label class="field">اسم العرض<input id="settingName" class="text-control" maxlength="40" placeholder="اسمك أو اسم الخطة"></label><label class="field">هدف الإنجاز اليومي<select id="settingDailyGoal" class="select-control"><option value="1">مهمة واحدة</option><option value="2">مهمتان</option><option value="3">3 مهام</option><option value="4">4 مهام</option><option value="5">5 مهام</option><option value="6">6 مهام</option><option value="8">8 مهام</option></select></label><label class="field">أيام الراحة الأسبوعية<div id="restDaysEditor" class="rest-days"></div></label><label class="check-row"><input id="vacationMode" type="checkbox"> وضع إجازة مؤقتة (يوقف احتساب الاستمرارية)</label><button class="btn btn-primary" id="saveSettings">حفظ الإعدادات</button></div>
+          <div class="panel"><h3>النسخ والاستعادة</h3><p class="muted small">يشمل النسخ النظريات والمهام والعادات والأهداف والسجلات والنقاط والمكافآت والإعدادات.</p><div class="backup-actions"><button class="btn btn-primary" id="exportBackup">تنزيل نسخة JSON كاملة</button><label class="btn btn-secondary file-btn">استعادة نسخة JSON<input type="file" id="importBackup" accept=".json,application/json" hidden></label><button class="btn btn-secondary" id="exportCSV">تصدير سجل الإنجاز CSV</button></div><div class="divider"></div><h3>توافق Time Planner</h3><p class="muted small">يمكن توليد نسخة SQLite متوافقة مع النسخة التي أرسلتها سابقًا عند تشغيل خادم BalanceOS المحلي. كما يمكن تصدير إعدادات النظريات لتحميلها في Time Planner Balance Builder.</p><div class="backup-actions"><button class="btn btn-secondary" id="exportTimePlanner">إنشاء نسخة Time Planner DB</button><button class="btn btn-ghost" id="exportTPConfig">تصدير إعدادات Time Planner JSON</button><label class="btn btn-secondary file-btn">اختيار نسخة Time Planner DB<input type="file" id="importTPDb" accept=".db,.sqlite,.sqlite3" hidden></label></div><div id="timePlannerStatus" class="status-box">يتم التحقق من أداة التصدير المحلية...</div></div>
+          <div class="panel"><h3>البيانات والخصوصية</h3><div class="privacy-points"><p>✓ لا تحتاج النسخة الحالية إلى حساب أو اتصال بخادم خارجي.</p><p>✓ حفظ محلي تلقائي بعد التعديلات.</p><p>✓ يمكنك تصدير بياناتك واستعادتها في أي وقت.</p><p>! لا تتزامن البيانات تلقائيًا بين الأجهزة في هذه النسخة.</p></div><div class="divider"></div><button class="btn btn-danger" id="resetApp">إعادة ضبط التطبيق وحذف بيانات هذا الجهاز</button></div></div>
+      </section>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" id="mobileNav">
+    <button class="active" data-view="dashboard"><span>◫</span>الرئيسية</button><button data-view="today"><span>✓</span>اليوم</button><button data-view="plans"><span>◎</span>خططي</button><button data-view="habits"><span>↻</span>العادات</button><button data-view="analytics"><span>▥</span>التقدم</button>
+  </nav>
+
+  <dialog id="taskDialog" class="app-dialog"><form method="dialog" id="taskForm"><div class="dialog-head"><div><div class="eyebrow">إضافة إلى خطتك</div><h3 id="taskDialogTitle">مهمة جديدة</h3></div><button class="icon-btn close-dialog" value="cancel">×</button></div><input type="hidden" id="editTaskId"><label class="field">اسم المهمة<input id="taskNameInput" class="text-control" required maxlength="140" placeholder="ما الخطوة التي تريد تنفيذها؟"></label><label class="field">النظرية والقسم<select id="taskSectionSelect" class="select-control"></select></label><label class="field">وصف أو معيار الإنجاز<textarea id="taskNoteInput" rows="2" placeholder="كيف تعرف أن المهمة اكتملت؟"></textarea></label><label class="field">ربط بهدف (اختياري)<select id="taskGoalInput" class="select-control"><option value="">بدون ربط بهدف</option></select></label><div class="form-grid"><label class="field">الأولوية<select id="taskPriorityInput" class="select-control"><option value="1">منخفضة</option><option value="2" selected>متوسطة</option><option value="3">عالية</option></select></label><label class="field">تاريخ الاستحقاق<input type="date" id="taskDueInput" class="text-control"></label></div><label class="check-row"><input type="checkbox" id="taskScheduleInput"> اجعلها عادة أو نشاطًا متكررًا</label><div id="taskScheduleOptions" class="schedule-options hidden"><div class="form-grid"><label class="field">التكرار<select id="taskRepeatInput" class="select-control"><option value="daily">يوميًا</option><option value="weekly">أيام أسبوعية</option></select></label><label class="field">المدة بالدقائق<input type="number" id="taskMinutesInput" class="text-control" min="1" max="600" value="15"></label></div><div class="days-checks" id="taskDaysInput"></div><div class="form-grid"><label class="field">الوقت<input type="time" id="taskTimeInput" class="text-control" value="08:00"></label><label class="field">فترة اليوم<select id="taskPartInput" class="select-control"><option value="morning">صباحًا</option><option value="daytime">نهارًا</option><option value="afternoon">عصرًا</option><option value="evening">مساءً</option><option value="anytime">أي وقت</option></select></label></div></div><div class="dialog-actions"><button class="btn btn-secondary close-dialog" value="cancel">إلغاء</button><button class="btn btn-primary" id="saveTaskBtn" value="default">حفظ المهمة</button></div></form></dialog>
+
+  <dialog id="goalDialog" class="app-dialog"><form method="dialog" id="goalForm"><div class="dialog-head"><div><div class="eyebrow">بناء نتيجة</div><h3>هدف جديد</h3></div><button class="icon-btn close-dialog" value="cancel">×</button></div><label class="field">اسم الهدف<input id="goalNameInput" class="text-control" required maxlength="120" placeholder="مثال: إنهاء دراسة متن أو إطلاق منتج"></label><label class="field">يرتبط بنظرية<select id="goalTheoryInput" class="select-control"></select></label><label class="field">وصف النتيجة<textarea id="goalDescInput" rows="2" placeholder="ما النتيجة التي تريد الوصول إليها؟"></textarea></label><div class="form-grid"><label class="field">القيمة المستهدفة<input id="goalTargetInput" type="number" min="1" class="text-control" value="10"></label><label class="field">وحدة القياس<input id="goalUnitInput" class="text-control" value="خطوة" maxlength="24"></label></div><label class="field">الموعد المستهدف<input id="goalDueInput" type="date" class="text-control"></label><div class="dialog-actions"><button class="btn btn-secondary close-dialog" value="cancel">إلغاء</button><button class="btn btn-primary" id="saveGoalBtn" value="default">حفظ الهدف</button></div></form></dialog>
+
+  <dialog id="rewardDialog" class="app-dialog"><form method="dialog" id="rewardForm"><div class="dialog-head"><div><div class="eyebrow">مكافأة تختارها بنفسك</div><h3>إضافة مكافأة</h3></div><button class="icon-btn close-dialog" value="cancel">×</button></div><label class="field">اسم المكافأة<input id="rewardNameInput" class="text-control" required maxlength="80" placeholder="مثال: شراء كتاب أو نزهة"></label><label class="field">تكلفتها بالعملات<input id="rewardCostInput" type="number" min="1" class="text-control" value="50"></label><label class="field">ملاحظة<input id="rewardNoteInput" class="text-control" placeholder="شروط أو تفاصيل اختيارية"></label><div class="dialog-actions"><button class="btn btn-secondary close-dialog" value="cancel">إلغاء</button><button class="btn btn-primary" id="saveRewardBtn" value="default">إضافة</button></div></form></dialog>
+
+  <dialog id="journalNoteDialog" class="app-dialog"><form method="dialog"><div class="dialog-head"><h3>ملاحظة الإنجاز</h3><button class="icon-btn close-dialog" value="cancel">×</button></div><textarea id="completionNoteInput" class="text-control" rows="3" placeholder="تفصيل اختياري: ماذا أنجزت؟"></textarea><div class="dialog-actions"><button class="btn btn-secondary" value="cancel">إلغاء</button><button class="btn btn-primary" id="confirmCompletion" value="default">تأكيد الإنجاز</button></div></form></dialog>
+
+  <div id="toastRegion" class="toast-region" aria-live="polite"></div>
+  <script src="./app.js" defer></script>
+</body>
+</html>
